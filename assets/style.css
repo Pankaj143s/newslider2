@@ -1,0 +1,179 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: sans-serif;
+  background: #f0f0f0;
+}
+
+/* PLACEHOLDER for vertical content */
+.placeholder {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  color: #333;
+}
+
+/* SLIDER VIEWPORT */
+.slider-viewport {
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  min-height: 400px;
+  overflow: hidden;
+  margin-bottom: 2rem;
+  background: #000;
+}
+.slider-viewport::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("./Untitled design.png") center/cover no-repeat;
+  filter: blur(7px) brightness(0.7);
+  z-index: 0;
+}
+
+/* SLIDER CONTAINER (layered slides) */
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Each slide is absolutely positioned */
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform 0.8s ease;
+}
+
+/* Slide 1 initial state: visible */
+.slide1 {
+  transform: translateX(0);
+  z-index: 2;
+}
+/* Slide 2 initial state: offscreen to left */
+.slide2 {
+  transform: translateX(-100%);
+  z-index: 1;
+}
+
+/* When transitioning:
+   - Slide1 gets .transitioned and moves to right (translateX(100%))
+   - Slide2 gets .transitioned and moves in (translateX(0))
+*/
+.slide1.transitioned {
+  transform: translateX(100%);
+}
+.slide2.transitioned {
+  transform: translateX(0);
+}
+
+/* SLIDE 1 TEXT: Initially offscreen (shifted left) and transparent */
+.slide-text {
+  font-size: 3rem;
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+/* When animated, add .animate to slide-text */
+.slide-text.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* SLIDE 2: Overlay Text */
+.overlay-heading {
+  position: absolute;
+  top: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  color: #fff;
+  z-index: 3;
+}
+.overlay-footer {
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #fff;
+  z-index: 3;
+}
+
+/* VIDEO CONTAINER & TABLET FRAME */
+.video-container {
+  width: 720px;
+  max-width: 90%;
+  margin: 3rem 0; /* Space between overlay heading and footer */
+  position: relative;
+}
+.tablet-frame {
+  width: 100%;
+  background: #fff;
+  border: 5px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#videoElement {
+  width: 100%;
+  height: auto;
+}
+
+/* CUSTOM PLAY BUTTON (overlaid on video) */
+.player {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  display: none; /* Shown via JS */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.player .arrow {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 14px solid #000;
+  margin-bottom: 2px;
+}
+.player .label {
+  font-size: 12px;
+  color: #000;
+}
+.player:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}

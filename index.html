@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Slider Demo</title>
+    <link rel="stylesheet" href="assets/style.css" />
+  </head>
+  <body>
+    <!-- Vertical content BEFORE the slider -->
+    <div class="placeholder">
+      <h1>Welcome to Our Page</h1>
+      <p>Scroll down to see our interactive slider.</p>
+    </div>
+
+    <div class="placeholder">
+      <h1>Welcome to Our Page</h1>
+      <p>Scroll down to see our interactive slider.</p>
+    </div>
+
+    <!-- SINGLE SLIDER WITH TWO SLIDES -->
+    <div class="slider-viewport" id="sliderSection">
+      <div class="slider-container">
+        <!-- Slide 1: Text slide -->
+        <div class="slide slide1" id="slide1">
+          <!-- The text starts off-screen to left -->
+          <h2 class="slide-text">An Aaron Einstein Project</h2>
+        </div>
+        <!-- Slide 2: Video & Typewritten Content -->
+        <div class="slide slide2" id="slide2">
+          <div class="overlay-heading">
+            <h2 id="typingHeading"></h2>
+          </div>
+          <div class="video-container">
+            <div class="tablet-frame">
+              <video id="videoElement" muted>
+                <source
+                  src="./assets/Tick_Repellent_Test.mp4"
+                  type="video/mp4"
+                />
+                Your browser does not support the video tag.
+              </video>
+              <!-- Custom Play Button over the video -->
+              <div id="customPlayButton" class="player">
+                <div class="arrow"></div>
+                <div class="label">Play</div>
+              </div>
+            </div>
+          </div>
+          <div class="overlay-footer">
+            <h2 id="typingFooter"></h2>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Vertical content AFTER the slider -->
+    <div class="placeholder">
+      <h1>More Content Below</h1>
+      <p>Keep scrolling for more content.</p>
+    </div>
+
+    <script src="assets/script.js"></script>
+  </body>
+</html>
