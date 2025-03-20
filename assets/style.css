@@ -4,24 +4,43 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: sans-serif;
   background: #f0f0f0;
 }
 
-/* PLACEHOLDER for vertical content */
+/* --- Fonts --- */
+@font-face {
+  font-family: "AkzidenzGroteskWeb";
+  src: local(""),
+    url("./fonts/Akzidenz-grotesk-ce-roman-bold.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SourceSerifWeb";
+  src: local(""), url("./fonts/SourceSerif4-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Placeholder Sections --- */
 .placeholder {
   min-height: 80vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 2rem;
   color: #333;
 }
 
-/* SLIDER VIEWPORT */
+/* --- Slider Viewport --- */
 .slider-viewport {
   position: relative;
   width: 100%;
@@ -31,159 +50,252 @@ body {
   margin-bottom: 2rem;
   background: #000;
 }
+
+/* Background: radial gradient over a background image */
 .slider-viewport::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("./Untitled design.png") center/cover no-repeat;
-  filter: blur(7px) brightness(0.7);
+  inset: 0;
+  background: radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(0, 0, 0, 0.3) 60%
+    ),
+    url("./aaron-background-image.png") top/cover no-repeat;
   z-index: 0;
 }
 
-/* SLIDER CONTAINER (layered slides) */
+/* --- Slider Container --- */
 .slider-container {
   position: relative;
   width: 100%;
   height: 100%;
 }
 
-/* Each slide is absolutely positioned */
+/* --- Slide Base Style --- */
+/* Transition slowed by 20% (1.2s) */
 .slide {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 2rem;
+  transition: transform 1.2s ease, opacity 1.2s ease;
+  opacity: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: transparent;
+}
+.slide.active {
+  z-index: 5;
+  opacity: 1;
+}
+
+/* --- Slide 1 Title --- */
+.slide-title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  transition: transform 0.8s ease;
-  color: #fff;
+  gap: 0;
 }
-
-/* Slide 1 initial state: visible */
-.slide1 {
-  transform: translateX(0);
-  z-index: 2;
+.slide-title div {
+  margin: 0;
+  line-height: 1;
 }
-/* Slide 2 initial state: offscreen to left */
-.slide2 {
-  transform: translateX(-100%);
-  z-index: 1;
-}
-
-/* When transitioning:
-   - Slide1 gets .transitioned and moves to right (translateX(100%))
-   - Slide2 gets .transitioned and moves in (translateX(0))
-*/
-.slide1.transitioned {
-  transform: translateX(100%);
-}
-.slide2.transitioned {
-  transform: translateX(0);
-}
-
-/* SLIDE 1 TEXT: Initially offscreen (shifted left) and transparent */
-/* Gradient text from white to DodgerBlue */
-.slide-text {
+.slide-title .word-an,
+.slide-title .word-project {
+  font-family: "SourceSerifWeb", serif;
   font-size: 3rem;
-  opacity: 0;
-  transform: translateX(-50px);
-  transition: opacity 1s ease, transform 1s ease;
-  background: linear-gradient(to right, #ffffff, #1e90ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+  color: #162144;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
-/* When animated, add .animate to slide-text */
-.slide-text.animate {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* SLIDE 2: Overlay Text */
-/* Overlay Heading with gradient text */
-.overlay-heading {
-  position: absolute;
-  top: 10px;
-  width: 100%;
-  text-align: center;
-  font-size: 2rem;
-  background: linear-gradient(to right, #ffffff, #1e90ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  z-index: 3;
-}
-/* Overlay Footer with gradient text */
-.overlay-footer {
-  position: absolute;
-  bottom: 10px;
-  width: 100%;
-  text-align: center;
-  font-size: 1.5rem;
-  background: linear-gradient(to right, #ffffff, #1e90ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  z-index: 3;
+.slide-title .word-aaron,
+.slide-title .word-einstein {
+  font-family: "AkzidenzGroteskWeb", sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  color: #162144;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* VIDEO CONTAINER & TABLET FRAME */
-.video-container {
-  width: 720px;
+/* Media queries for Slide 1 text */
+@media (min-width: 480px) {
+  .slide-title .word-an,
+  .slide-title .word-project {
+    font-size: 6rem;
+  }
+  .slide-title .word-aaron,
+  .slide-title .word-einstein {
+    font-size: 10rem;
+  }
+}
+@media (min-width: 768px) {
+  .slide-title .word-an,
+  .slide-title .word-project {
+    font-size: 8rem;
+  }
+  .slide-title .word-aaron,
+  .slide-title .word-einstein {
+    font-size: 12rem;
+  }
+}
+@media (min-width: 1024px) {
+  .slide-title .word-an,
+  .slide-title .word-project {
+    font-size: 3rem;
+  }
+  .slide-title .word-aaron,
+  .slide-title .word-einstein {
+    font-size: 7rem;
+  }
+}
+
+/* --- Slide 2 Image --- */
+#slide2 img {
   max-width: 90%;
-  margin: 3rem 0; /* Space between overlay heading and footer */
-  position: relative;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 10px;
 }
-.tablet-frame {
-  width: 100%;
-  background: #fff;
-  border: 5px solid #ccc;
-  border-radius: 20px;
-  overflow: hidden;
+
+/* --- Slide 3 Video Content --- */
+.video-content {
+  position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-#videoElement {
   width: 100%;
-  height: auto;
+  height: 100%;
+  gap: 0.4rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin: 0 auto;
 }
 
-/* CUSTOM PLAY BUTTON (overlaid on video) */
-.player {
+/* --- Play Button Overlay on Video --- */
+#videoPlayBtn {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 50%;
-  border: 2px solid #fff;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-  display: none; /* Shown via JS */
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  z-index: 15;
+  font-family: "AkzidenzGroteskWeb", sans-serif;
+  font-weight: 900;
+  background-color: #162144;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
 }
-.player .arrow {
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 14px solid #000;
-  margin-bottom: 2px;
+#videoPlayBtn.show {
+  opacity: 1;
+  visibility: visible;
 }
-.player .label {
-  font-size: 12px;
-  color: #000;
+
+/* --- White Box for All Text in Slide 3 --- */
+/* Reduced max-width to 42% for a narrower sidebar effect */
+.repellent-all {
+  max-width: 42%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.8s ease, opacity 0.8s ease;
+  text-align: center;
+  opacity: 0;
 }
-.player:hover {
-  transform: translate(-50%, -50%) scale(1.1);
+.repellent-all.expanded {
+  /* Expanded state will be controlled in JS step-by-step */
+  opacity: 1;
+}
+
+/* --- Text Elements inside the White Box --- */
+.repellent-text1,
+.repellent-text2,
+.repellent-count,
+.repellent-text3 {
+  font-family: "AkzidenzGroteskWeb", sans-serif;
+  font-weight: 900;
+  color: #162144;
+  margin: 0.2rem 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.repellent-text1 {
+  font-size: 1.8rem;
+}
+.repellent-text2 {
+  font-size: 1.4rem;
+}
+.repellent-count {
+  font-size: 3rem;
+}
+.repellent-text3 {
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+/* --- The Video --- */
+#tickVideo {
+  border-radius: 10px;
+  outline: none;
+  max-width: 80%;
+  max-height: 30vh;
+  display: block;
+}
+
+/* --- ARROWS --- */
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  color: #fff;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 10;
+  user-select: none;
+  opacity: 0.3;
+}
+.slider-arrow.left {
+  left: 1rem;
+}
+.slider-arrow.right {
+  right: 1rem;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 600px) {
+  .repellent-all {
+    max-width: 90%;
+    padding: 0.4rem 0.8rem;
+    max-height: 180px;
+  }
+  .repellent-text1 {
+    font-size: 1.4rem;
+  }
+  .repellent-text2 {
+    font-size: 1.2rem;
+  }
+  .repellent-count {
+    font-size: 2.5rem;
+  }
+  .repellent-text3 {
+    font-size: 1rem;
+  }
+  #tickVideo {
+    max-height: 25vh;
+  }
 }

@@ -2,58 +2,69 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Slider Demo</title>
+    <title>Custom Slider</title>
     <link rel="stylesheet" href="assets/style.css" />
   </head>
   <body>
-    <!-- Vertical content BEFORE the slider -->
+    <!-- Content before slider -->
     <div class="placeholder">
       <h1>Welcome to Our Page</h1>
-      <p>Scroll down to see our interactive slider.</p>
+      <p>Scroll down. The slider will reveal when in view.</p>
     </div>
 
-    <div class="placeholder">
-      <h1>Welcome to Our Page</h1>
-      <p>Scroll down to see our interactive slider.</p>
-    </div>
-
-    <!-- SINGLE SLIDER WITH TWO SLIDES -->
-    <div class="slider-viewport" id="sliderSection">
+    <!-- SLIDER VIEWPORT -->
+    <div class="slider-viewport" id="sliderViewport">
       <div class="slider-container">
-        <!-- Slide 1: Text slide -->
-        <div class="slide slide1" id="slide1">
-          <!-- The text starts off-screen to left -->
-          <h2 class="slide-text">An Aaron Einstein Project</h2>
-        </div>
-        <!-- Slide 2: Video & Typewritten Content -->
-        <div class="slide slide2" id="slide2">
-          <div class="overlay-heading">
-            <h2 id="typingHeading"></h2>
+        <!-- Slide 1 -->
+        <div class="slide" id="slide1">
+          <div class="slide-title">
+            <div class="word-an">AN</div>
+            <div class="word-aaron">AARON</div>
+            <div class="word-einstein">EINSTEIN</div>
+            <div class="word-project">PROJECT</div>
           </div>
-          <div class="video-container">
-            <div class="tablet-frame">
-              <video id="videoElement" muted>
-                <source
-                  src="./assets/Tick_Repellent_Test.mp4"
-                  type="video/mp4"
-                />
-                Your browser does not support the video tag.
-              </video>
-              <!-- Custom Play Button over the video -->
-              <div id="customPlayButton" class="player">
-                <div class="arrow"></div>
-                <div class="label">Play</div>
+        </div>
+        <!-- Slide 2 -->
+        <div class="slide" id="slide2">
+          <img
+            src="assets/aaron_and_jens_library_centered.png"
+            alt="Jens and Aron in lab"
+          />
+        </div>
+        <!-- Slide 3 -->
+        <div class="slide" id="slide3">
+          <div class="video-content">
+            <!-- Video element -->
+            <video id="tickVideo" muted>
+              <source src="assets/TestVideo.mp4" type="video/mp4" />
+            </video>
+            <!-- Play button overlay on video -->
+            <button id="videoPlayBtn">Play Video</button>
+            <!-- White box for all text below the video -->
+            <div class="repellent-all" id="repellentAll">
+              <div class="repellent-text1" id="repellentText1">
+                How do you test a tick repellent?
+              </div>
+              <div class="repellent-text2" id="repellentText2">
+                Ever wondered how many tick repellents don't pass this test?
+              </div>
+              <div class="count-wrapper">
+                <span class="repellent-count" id="repellentCount">0%</span>
+              </div>
+              <div class="repellent-text3" id="repellentText3">
+                In fact – a startling 95% of the tick repellents we evaluated
+                did not pass this test. Isn't that surprising?
               </div>
             </div>
           </div>
-          <div class="overlay-footer">
-            <h2 id="typingFooter"></h2>
-          </div>
         </div>
       </div>
+      <!-- Navigation Arrows -->
+      <div class="slider-arrow left" id="arrowLeft">&#9664;</div>
+      <div class="slider-arrow right" id="arrowRight">&#9654;</div>
     </div>
 
-    <!-- Vertical content AFTER the slider -->
+    <!-- Content after slider -->
     <div class="placeholder">
       <h1>More Content Below</h1>
       <p>Keep scrolling for more content.</p>
